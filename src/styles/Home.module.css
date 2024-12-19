@@ -1,0 +1,14 @@
+* {
+  margin: 0rem;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.logo {
+  width: 30vw;
+  align-self: center;
+  padding: 3rem;
+}
