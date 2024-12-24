@@ -22,7 +22,7 @@ const NavBar = (props) => {
 
   return (
     <div>
-      <div style={{ position: "fixed", zIndex: "1000" }}>
+      <div>
         <div className={styles.navBar}>
           <div className={styles.button}>
             <Link to="/">Home</Link>

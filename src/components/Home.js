@@ -4,9 +4,7 @@ import styles from "../styles/Home.module.css";
 const Home = () => {
   return (
     <div className={styles.main}>
-      <div>
-        <p>iep</p>
-      </div>
+      <p>iep</p>
     </div>
   );
 };

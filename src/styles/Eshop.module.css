@@ -1,4 +1,6 @@
 .main {
   display: flex;
   flex-direction: column;
+  box-shadow: inset 0px 0px 0px 3px green;
+  height: 100%;
 }
