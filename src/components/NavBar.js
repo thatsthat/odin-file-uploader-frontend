@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "../styles/NavBar.module.css";
 import ProductPage from "./ProductPage";
 import ShoppingCart from "./ShoppingCart";
-import { userLoggedIn, userLogOut } from "./utils/userInfo";
+import { userLoggedIn, userLogOut } from "../utils/userInfo";
 
 const NavBar = (props) => {
   useEffect(() => {
