@@ -1,8 +1,9 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import styles from "../styles/Eshop.module.css";
 
 const Eshop = () => {
@@ -46,7 +47,7 @@ const Eshop = () => {
 
   return (
     <div className={styles.main}>
-      <HashRouter>
+      <BrowserRouter>
         <NavBar
           incClick={oneMore}
           decClick={oneLess}
@@ -57,8 +58,9 @@ const Eshop = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 };

@@ -7,3 +7,17 @@
   justify-content: center;
   height: 100vh;
 }
+.loginform {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.loginfield {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+}

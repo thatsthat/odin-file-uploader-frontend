@@ -11,16 +11,16 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  box-shadow: inset 0px 0px 0px 3px yellow;
+  /* box-shadow: inset 0px 0px 0px 3px yellow; */
   height: 100%;
 }
 
 #root {
-  box-shadow: inset 0px 0px 0px 3px cyan;
+  /* box-shadow: inset 0px 0px 0px 3px cyan; */
   height: 100%;
 }
 
 body {
-  box-shadow: inset 0px 0px 0px 3px magenta;
+  /* box-shadow: inset 0px 0px 0px 3px magenta; */
   height: 100%;
 }

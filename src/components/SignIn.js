@@ -1,17 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import styles from "../styles/SignIn.module.css";
 
 const SignIn = (props) => {
-  const [state, setState] = useState({});
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     (() => {})();
   }, []);
+
+  const handleSubmit = async (data) => {
+    console.log("yupyuuuuup");
+    const formData = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    var url = import.meta.env.VITE_API_URL + "/login";
+    const resp = await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const tokenPayload = await resp.json();
+    console.log(resp.status);
+    if (resp.status == 403) {
+      setErrorMsg(tokenPayload.error);
+    } else {
+      localStorage.setItem("currentToken", tokenPayload.token);
+      const tokenData = jwtDecode(JSON.stringify(tokenPayload));
+      localStorage.setItem(
+        "currentTokenExpires",
+        JSON.stringify(tokenData.exp)
+      );
+      localStorage.setItem("currentUser", JSON.stringify(tokenData.user));
+      console.log("iep");
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div className={styles.main}>
-      <form>
-        <input name="query" />
-        <button type="submit">Search</button>
+      <form action={handleSubmit}>
+        <div className={styles.loginform}>
+          <h2>Log in</h2>
+          <div className={styles.loginfield}>
+            <label htmlFor="email">Email</label>
+            <input name="email" />
+          </div>
+          <div className={styles.loginfield}>
+            <label htmlFor="password">Password</label>
+            <input name="password" />
+          </div>
+          {errorMsg && <div className={styles.error}>{errorMsg}</div>}
+          <button type="submit">Continue</button>
+          <p>
+            Don’t have an account? <Link to="/signup">Sign up</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
