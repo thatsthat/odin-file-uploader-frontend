@@ -3,22 +3,25 @@ import { Link } from "react-router-dom";
 import styles from "../styles/NavBar.module.css";
 import ProductPage from "./ProductPage";
 import ShoppingCart from "./ShoppingCart";
+import { userLoggedIn, userLogOut } from "./utils/userInfo";
 
 const NavBar = (props) => {
-  const [cartVisible, setCartVisible] = useState(false);
-
   useEffect(() => {
     (() => {})();
   }, []);
 
-  const mystyle = {
-    color: "white",
-    backgroundColor: "black",
-    fontSize: "3rem",
-  };
-
-  const showCart = () => setCartVisible(true);
-  const hideCart = () => setCartVisible(false);
+  function HeaderButton({ loggedIn }) {
+    if (!loggedIn) {
+      return <Link to="/signin">Sign in</Link>;
+    }
+    return (
+      <>
+        <button type="button" onClick={userLogOut}>
+          Logout
+        </button>
+      </>
+    );
+  }
 
   return (
     <div>
@@ -28,7 +31,7 @@ const NavBar = (props) => {
             <Link to="/">Home</Link>
           </div>
           <div className={styles.button}>
-            <Link to="/signin">Sign in</Link>
+            <HeaderButton loggedIn={userLoggedIn()}></HeaderButton>
           </div>
         </div>
       </div>
