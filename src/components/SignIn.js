@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import styles from "../styles/SignIn.module.css";
 
@@ -9,6 +9,8 @@ const SignIn = (props) => {
   useEffect(() => {
     (() => {})();
   }, []);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (data) => {
     console.log("yupyuuuuup");
@@ -36,8 +38,8 @@ const SignIn = (props) => {
         JSON.stringify(tokenData.exp)
       );
       localStorage.setItem("currentUser", JSON.stringify(tokenData.user));
-      console.log("iep");
       window.location.href = "/";
+      //navigate("/", { replace: true });
     }
   };
 
@@ -45,7 +47,7 @@ const SignIn = (props) => {
     <div className={styles.main}>
       <form action={handleSubmit}>
         <div className={styles.loginform}>
-          <h2>Log in</h2>
+          <h2>Sign in</h2>
           <div className={styles.loginfield}>
             <label htmlFor="email">Email</label>
             <input name="email" />

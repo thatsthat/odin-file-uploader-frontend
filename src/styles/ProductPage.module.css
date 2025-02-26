@@ -1,8 +1,0 @@
-.productgrid {
-  background-color: #f9f9f9;
-  display: grid;
-  gap: 35px;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  padding: 2rem;
-  margin-top: 6rem;
-}

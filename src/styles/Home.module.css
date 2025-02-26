@@ -8,5 +8,19 @@
   height: 80vh; */
   /* box-shadow: inset 0px 0px 0px 3px blue; */
   padding: 0rem;
-  margin: 5px;
+  margin: 0;
+  display: flex;
+  height: 100%;
+}
+
+.sideBar {
+  width: 20vw;
+  border-right: 2px solid grey;
+  padding: 1rem;
+}
+.content {
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
