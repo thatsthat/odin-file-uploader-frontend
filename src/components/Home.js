@@ -6,6 +6,26 @@ import SignIn from "./SignIn";
 import SideBar from "./SideBar";
 
 const Home = (props) => {
+  const [files, setFiles] = React.useState();
+
+  const fetchFiles = async () => {
+    const url = import.meta.env.VITE_API_URL + "/private/";
+    const resp = await fetch(url, {
+      method: "get",
+    });
+    const fileList = await resp.json();
+    const fileData = fileList.map((art) => ({
+      body: art.markDownText,
+      comments: art.comments,
+      id: art._id,
+    }));
+    setFiles(fileData);
+  };
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
+
   if (!userLoggedIn())
     return (
       <div className={stylesSignIn.main}>

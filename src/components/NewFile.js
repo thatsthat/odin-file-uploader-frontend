@@ -5,6 +5,20 @@ import { userLoggedIn, userLogOut } from "../utils/userInfo";
 
 const NewFile = (props) => {
   const doNothing = (e) => e.stopPropagation();
+  const upload = async (formData) => {
+    const url = import.meta.env.VITE_API_URL + "/private";
+    const token = localStorage.getItem("currentToken");
+    const resp = await fetch(url, {
+      method: "post",
+      // prettier-ignore
+      headers: {
+        "Authorization": "Bearer " + token,
+      },
+      body: formData,
+    });
+    const respPayload = await resp.json();
+    console.log(respPayload);
+  };
   return (
     <div className={styles.overlay} onClick={props.close}>
       <div className={styles.main} onClick={doNothing}>
@@ -15,15 +29,19 @@ const NewFile = (props) => {
           </div>
         </div>
         <div className={styles.body}>
-          <input
-            type="file"
-            id="avatar"
-            name="avatar"
-            accept="image/png, image/jpeg"
-          />
-        </div>
-        <div className={styles.confirm}>
-          <div className={styles.button}>Upload</div>
+          <form
+            id="fileForm"
+            action={upload}
+            method="post"
+            encType="multipart/form-data"
+          >
+            <input type="file" id="avatar" name="avatar" />
+            <div className={styles.confirm}>
+              <div className={styles.button}>
+                <button type="submit">Upload</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
