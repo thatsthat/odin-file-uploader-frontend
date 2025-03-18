@@ -10,16 +10,22 @@ const Home = (props) => {
 
   const fetchFiles = async () => {
     const url = import.meta.env.VITE_API_URL + "/private/";
+    const token = localStorage.getItem("currentToken");
     const resp = await fetch(url, {
       method: "get",
+      // prettier-ignore
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      },
     });
     const fileList = await resp.json();
-    const fileData = fileList.map((art) => ({
+    /*     const fileData = fileList.map((art) => ({
       body: art.markDownText,
       comments: art.comments,
       id: art._id,
-    }));
-    setFiles(fileData);
+    })); */
+    setFiles(fileList);
   };
 
   useEffect(() => {
@@ -33,13 +39,19 @@ const Home = (props) => {
       </div>
     );
 
+  if (!files) return null;
+
   return (
     <div className={styles.main}>
       <div className={styles.sideBar}>
         <SideBar showNewFile={props.newFile} showNewFolder={props.newFolder} />
       </div>
       <div className={styles.content}>
-        <p>iep</p>
+        {files.map((file, index) => (
+          <div className={styles.file} key={index}>
+            {file.name}
+          </div>
+        ))}
       </div>
     </div>
   );
