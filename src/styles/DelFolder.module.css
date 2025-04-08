@@ -10,7 +10,7 @@
   padding: 3rem;
 }
 
-input[type="text"] {
+input[type="file"] {
   font-size: large;
 }
 
@@ -21,6 +21,7 @@ input[type="text"] {
 }
 .body {
   display: flex;
+  flex-direction: column;
 }
 
 .button {
@@ -36,6 +37,7 @@ input[type="text"] {
   text-decoration: none;
   margin-top: 1rem;
   font-size: large;
+  cursor: pointer;
 }
 
 .title {
@@ -60,4 +62,10 @@ input[type="text"] {
 .error {
   color: red;
   font-size: large;
+}
+
+.buttonsRow {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }

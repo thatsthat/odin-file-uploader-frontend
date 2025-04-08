@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import styles from "../styles/NewFile.module.css";
 import { userLoggedIn, userLogOut } from "../utils/userInfo";
 
 const NewFile = (props) => {
   const doNothing = (e) => e.stopPropagation();
-  const upload = async (formData) => {
-    const url = import.meta.env.VITE_API_URL + "/private";
+  const [errors, setErrors] = useState({});
+  const currentURL = useLocation();
+  const parentId = currentURL.pathname.slice(1);
+  var navigate = useNavigate();
+  const upload = async (event) => {
+    event.preventDefault();
+    let validationErrors = {};
+    const fileNode = document.querySelector("input[type='file']");
+    if (fileNode.files.length == 0) {
+      validationErrors.file = "No file has been selected";
+      setErrors(validationErrors);
+      return;
+    }
+    const formData = new FormData(event.currentTarget);
+    formData.append("parentId", parentId);
+    const url = import.meta.env.VITE_API_URL + "/private/file";
     const token = localStorage.getItem("currentToken");
     const resp = await fetch(url, {
       method: "post",
@@ -16,8 +30,16 @@ const NewFile = (props) => {
       },
       body: formData,
     });
-    const respPayload = await resp.json();
-    console.log(respPayload);
+    const respPayload = await resp;
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      // Handle the successful form submission, e.g., sending formData to a server
+      console.log(Array.from(formData.entries()));
+      setErrors({}); // Clear any previous errors
+      props.reload();
+      props.close();
+    }
   };
   return (
     <div className={styles.overlay} onClick={props.close}>
@@ -29,18 +51,17 @@ const NewFile = (props) => {
           </div>
         </div>
         <div className={styles.body}>
-          <form
-            id="fileForm"
-            action={upload}
-            method="post"
-            encType="multipart/form-data"
-          >
-            <input type="file" id="avatar" name="avatar" />
-            <div className={styles.confirm}>
-              <div className={styles.button}>
-                <button type="submit">Upload</button>
-              </div>
-            </div>
+          <form id="fileForm" onSubmit={upload} encType="multipart/form-data">
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              onChange={() => setErrors({})}
+            />
+            <button type="submit" className={styles.button}>
+              Upload
+            </button>
+            {errors.file && <div className={styles.error}>{errors.file}</div>}
           </form>
         </div>
       </div>
