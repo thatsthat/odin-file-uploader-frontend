@@ -31,7 +31,13 @@ const FileView = (props) => {
             })}
           </div>{" "}
           <div className={styles.buttonsRow}>
-            <div className={styles.button}>Download</div>
+            <a
+              className={styles.button}
+              href={props.file.url + "?download"}
+              download={props.file.name}
+            >
+              Download
+            </a>
             <div className={styles.button} onClick={fileDelete}>
               Delete
             </div>

@@ -6,6 +6,8 @@
   /* box-shadow: inset 0px 0px 0px 3px red; */
   justify-content: space-between;
   border-bottom: 2px solid grey;
+  position: sticky;
+  top: 0;
 }
 
 .button,
