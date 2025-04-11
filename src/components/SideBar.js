@@ -16,14 +16,16 @@ const SideBar = (props) => {
       <div className={styles.button} onClick={props.showNewFolder}>
         New Folder
       </div>
-      <div
-        className={styles.button}
-        onClick={() => {
-          props.showDelFolder(props.folderId);
-        }}
-      >
-        Delete Folder
-      </div>
+      {props.folderId && (
+        <div
+          className={styles.button}
+          onClick={() => {
+            props.showDelFolder(props.folderId);
+          }}
+        >
+          Delete Folder
+        </div>
+      )}
     </div>
   );
 };

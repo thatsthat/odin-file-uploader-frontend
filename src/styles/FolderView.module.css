@@ -36,7 +36,7 @@
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-  text-align: center;
+
   background-color: black;
   cursor: pointer;
   user-select: none;
@@ -50,8 +50,24 @@
   padding: 0.5rem 1rem;
   width: 100%;
   box-sizing: border-box;
-  text-align: center;
-  background-color: blue;
+
   text-decoration: none;
   color: white;
+}
+
+.folderName {
+  margin-top: 1rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  text-decoration: none;
+  color: white;
+}
+
+.icon {
+  margin-right: 1rem;
+  vertical-align: bottom;
 }

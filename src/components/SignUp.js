@@ -45,11 +45,11 @@ const SignUp = (props) => {
           </div>
           <div className={styles.loginfield}>
             <label htmlFor="password">Password</label>
-            <input name="password" />
+            <input name="password" type="password" />
           </div>
           <div className={styles.loginfield}>
             <label htmlFor="password2">Repeat Password</label>
-            <input name="password2" />
+            <input name="password2" type="password" />
           </div>
           {errorMsg && <div className={styles.error}>{errorMsg}</div>}
           <button type="submit">Continue</button>

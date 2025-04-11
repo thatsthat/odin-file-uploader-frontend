@@ -6,10 +6,13 @@ import apiCall from "../utils/apiFunctions";
 import SignIn from "./SignIn";
 import SideBar from "./SideBar";
 import { Link, useParams } from "react-router";
+import Icon from "@mdi/react";
+import { mdiFile, mdiFolderOutline, mdiFolderArrowUpOutline } from "@mdi/js";
 
 const FolderView = (props) => {
   const [files, setFiles] = useState();
   const [parentId, setParentId] = useState("");
+  const [folderName, setFolderName] = useState(false);
   const folderId = useParams().folderId;
 
   const fetchFiles = async () => {
@@ -17,15 +20,17 @@ const FolderView = (props) => {
     var folderInfo = [];
     if (folderId) {
       folderInfo = await apiCall("get", "/private/file/" + folderId);
-      console.log(folderInfo);
-      if (folderInfo.parentId !== null) setParentId(folderInfo.parentId);
-      else setParentId("");
-    }
+      setFolderName(folderInfo.name);
+      if (folderInfo.parentId !== null) {
+        setParentId(folderInfo.parentId);
+      } else setParentId("");
+    } else setFolderName(false);
 
     const fileList = await apiCall("get", "/private/" + folderId);
     // List folders first
     fileList.sort((a, b) => b.isFolder - a.isFolder);
     setFiles(fileList);
+    console.log(folderName);
   };
 
   useEffect(() => {
@@ -52,13 +57,28 @@ const FolderView = (props) => {
         />
       </div>
       <div className={styles.content}>
-        <Link to={"/" + parentId} className={styles.folder}>
-          Parent Folder
-        </Link>
+        {folderName && (
+          <>
+            <div className={styles.folderName}>Folder Name: {folderName}</div>
+            <Link to={"/" + parentId} className={styles.folder}>
+              <Icon
+                className={styles.icon}
+                path={mdiFolderArrowUpOutline}
+                size={1}
+              />
+              Parent Folder
+            </Link>
+          </>
+        )}
         {files.map((file, index) => {
           if (file.isFolder)
             return (
               <Link to={"/" + file.id} key={index} className={styles.folder}>
+                <Icon
+                  className={styles.icon}
+                  path={mdiFolderOutline}
+                  size={1}
+                />
                 {file.name}
               </Link>
             );
@@ -71,6 +91,7 @@ const FolderView = (props) => {
                   props.fileView(file);
                 }}
               >
+                <Icon className={styles.icon} path={mdiFile} size={1} />
                 {file.name}
               </div>
             );

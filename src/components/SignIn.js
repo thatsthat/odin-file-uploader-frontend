@@ -54,7 +54,7 @@ const SignIn = (props) => {
           </div>
           <div className={styles.loginfield}>
             <label htmlFor="password">Password</label>
-            <input name="password" />
+            <input name="password" type="password" />
           </div>
           {errorMsg && <div className={styles.error}>{errorMsg}</div>}
           <button type="submit">Continue</button>

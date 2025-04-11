@@ -29,9 +29,6 @@ const NavBar = (props) => {
         <div className={styles.button}>
           <Link to="/">Home</Link>
         </div>
-        <div className={styles.button}>
-          <HeaderButton loggedIn={userLoggedIn()}></HeaderButton>
-        </div>
         {(props.stateFile ||
           props.stateFolder ||
           props.stateFileView ||
@@ -59,6 +56,9 @@ const NavBar = (props) => {
             )}
           </div>
         )}
+        <div className={styles.button}>
+          <HeaderButton loggedIn={userLoggedIn()}></HeaderButton>
+        </div>
       </div>
       <Outlet />
     </>
